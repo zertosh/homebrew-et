@@ -20,9 +20,10 @@ class Et < Formula
 
   def install
     ENV["VCPKG_FORCE_SYSTEM_BINARIES"] = "1"
-    system "cmake", ".", "-DDISABLE_VCPKG:BOOL=ON", "-DPYTHON_EXECUTABLE=/usr/bin/python3", *std_cmake_args
+    system "cmake", ".", "-DDISABLE_TELEMETRY:BOOL=ON", "-DDISABLE_VCPKG:BOOL=ON", "-DPYTHON_EXECUTABLE=/usr/bin/python3", *std_cmake_args
     system "make", "install"
     etc.install 'etc/et.cfg' => 'et.cfg' unless File.exist? etc+'et.cfg'
+    inreplace etc/"et.cfg", /^\s*telemetry\s*=\s*true.*/m, "telemetry = false"
   end
 
   service do
