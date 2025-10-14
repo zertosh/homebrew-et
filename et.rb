@@ -23,7 +23,7 @@ class Et < Formula
     system "cmake", ".", "-DDISABLE_TELEMETRY:BOOL=ON", "-DDISABLE_VCPKG:BOOL=ON", "-DPYTHON_EXECUTABLE=/usr/bin/python3", *std_cmake_args
     system "make", "install"
     etc.install 'etc/et.cfg' => 'et.cfg' unless File.exist? etc+'et.cfg'
-    inreplace etc/"et.cfg", /^\s*telemetry\s*=\s*true.*$/m, "telemetry = false"
+    inreplace etc/"et.cfg", "telemetry = true", "telemetry = false"
   end
 
   service do
